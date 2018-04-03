@@ -1,0 +1,50 @@
+{
+	"local": {
+		"MySQL" :{
+			"username": "root",
+			"password": "",
+			"database": "",
+			"host": "127.0.0.1",
+			"dialect": "mysql",
+			"logging": false,
+      "charset": "utf8mb4",
+      "port": 3306
+		},
+		"MongoDB" :{
+			"url" : "mongodb://localhost:27017/database"
+		},
+		"usage" : "MySQL"
+	},
+	"development": {
+		"MySQL" :{
+			"username": "root",
+			"password": "",
+			"database": "dbname",
+			"host": "127.0.0.1",
+			"dialect": "mysql",
+			"logging": false,
+      "charset": "utf8mb4",
+      "port": 3306
+		},
+		"MongoDB" :{
+			"url" : "mongodb://localhost:27017/database"
+		},
+		"usage" : "MySQL"
+	},
+	"production": {
+		"MySQL" :{
+			"username": "root",
+			"password": "",
+			"database": "dbname",
+			"host": "127.0.0.1",
+			"dialect": "mysql",
+			"logging": false,
+      "charset": "utf8mb4",
+      "port": 3306
+		},
+		"MongoDB" :{
+			"url" : "mongodb://localhost:27017/database"
+		},
+		"usage" : "MySQL"
+	}
+}

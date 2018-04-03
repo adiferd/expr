@@ -1,0 +1,13 @@
+if(typeof process.env.NODE_ENV === 'undefined') {
+	process.env.NODE_ENV= 'local';
+}
+
+const App=  require('../app');
+
+class WWW {
+	constructor() {
+		this.main= new App;
+	}
+}
+
+var initServer= new WWW();
