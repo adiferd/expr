@@ -30,7 +30,7 @@ class Hello {
   static async sayHello(req, res, next) {
       try {
           let response = Formatter.toSingleResponse({hello: 'world'}, 'Say hello')
-          res.send(response)
+          res.send(response).status(201)
       } catch (e) {
           let response = Formatter.toSingleResponse({hello: e}, 'Error occured')
           res.send(response)

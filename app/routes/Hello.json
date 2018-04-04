@@ -3,8 +3,9 @@
 		"prefix" : "/v1/example"
 		, "middlewares" : []
 		, "routes" : [
-			["get", "/hello", "Hello.sayHello" ]
-		]
+			  ["get", "/hello", "Hello.sayHello" ]
+			, ["get", "/helloyeah", "Hello.sayHello" ]
+		  ]
 	}
 	, {
 		"prefix" : "/v2/example"

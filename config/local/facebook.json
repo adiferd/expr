@@ -1,6 +1,8 @@
 {
-  "graph_url" : "",
-  "token": "",
-  "page_id": "",
-  "verify_token": ""
+  "local" : {
+    "graph_url" : "",
+    "token": "",
+    "page_id": "",
+    "verify_token": "tokenverify"
+  }
 }
