@@ -8,9 +8,11 @@ const Formatter = require(`${process.env.PWD}/app/helpers/Formatter`)
 class Http {
   static async apply(server) {
     try {
-      server.use(bodyParser.json());
-      server.use(bodyParser.urlencoded({ extended:false }));
-      server.use('cors');
+      server.on('uncaughtException', (req, rest, next) =>{
+        server.use(bodyParser.json());
+        server.use(bodyParser.urlencoded({ extended:false }));
+        server.use('cors');
+      })
     } catch (e) {
       console.log(e);
     }
