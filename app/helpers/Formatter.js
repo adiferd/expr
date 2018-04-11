@@ -3,7 +3,7 @@
 class Formatter {
 	static toSingleResponse(data, message, error) {
 		return {
-			result: data
+			  result: data
 			, message: message
 			, error: (error!=null)?error:null
 		};
@@ -11,7 +11,7 @@ class Formatter {
 
 	static toPaginatedResponse(data, message, error) {
 		const result = {
-			items: data.values
+			  items: data.values
 			, length : parseInt(data.length)
 			, start : parseInt(data.start)
 			, remaining: parseInt(data.totalData) - parseInt(data.start) + parseInt(data.length)

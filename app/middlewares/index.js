@@ -31,4 +31,4 @@ class Middlewares {
 	}
 }
 
-module.exports= Middlewares
+module.exports= Middlewares;
