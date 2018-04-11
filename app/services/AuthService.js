@@ -29,6 +29,16 @@ class AuthService {
 			        }
       }
   }
+
+  static async validateToken(token) {
+      try {
+          const decrypted = await Hash.jwtVerify(token, ConfigHelpe.get('client').access_token);
+          return decrypted;
+      } catch (e) {
+        console.log(e);
+        return false;
+      }
+  }
 }
 
 module.exports = AuthService;

@@ -25,7 +25,7 @@ class Hash {
             return reject(err);
           }
           else {
-            return resolve(decoded);
+            resolve(decoded);
           }
         });
       });

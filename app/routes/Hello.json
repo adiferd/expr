@@ -3,13 +3,13 @@
 		"prefix" : "/v1/example"
 		, "middlewares" : []
 		, "routes" : [
-			  ["get", "/hello", "Hello.sayHello" ]
+			  ["get", "/hello", "Hello.sayHello", ["Auth.isAuthenticated"]]
 			, ["get", "/helloyeah", "Hello.sayHello" ]
 		  ]
 	}
 	, {
 		"prefix" : "/v2/example"
-		, "middlewares" : []
+		, "middlewares" : ["Auth.isAuthenticated"]
 		, "routes" : [
 			["get", "/shipment", "Hello.sayHello" ]
 		]

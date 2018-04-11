@@ -13,16 +13,15 @@ class Routing {
 
 		this.attachRouteGroups(server, availableRoutes, availableControllers, availableMiddlewares);
 
-		return true;
+	return true;
   }
 
   static getAvailableRoutes() {
-		var routes= new Routes();
-
+    var routes= new Routes();
 		return routes.registeredRouteGroups;
-	}
+  }
 
-	static getAvailableMiddlewares() {
+  static getAvailableMiddlewares() {
 		var middlewares= new Middlewares();
 
 		return middlewares.registeredMiddlewares;
@@ -43,11 +42,11 @@ class Routing {
 		return true;
 	}
 
-	static setGroupMiddlewares(groupMiddlewares) {
+	static setGroupMiddlewares(groupMiddlewares, availableMiddlewares) {
 		var appliedGroupMdlwrs= [];
 
 		groupMiddlewares.forEach( (middlewares) => {
-			appliedGroupMdlwrs.push(Utils.accessObjectPropertyByString(Mdlwr, middlewares))
+			appliedGroupMdlwrs.push(Utils.accessObjectPropertyByString(availableMiddlewares, middlewares))
 		})
 
 		return appliedGroupMdlwrs;

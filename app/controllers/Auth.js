@@ -8,8 +8,6 @@ class Auth {
 
   static async doAuthentication(req, res, next) {
     try {
-      let body = req.body;
-      // console.log(body);
       const auth =  await AuthService.doAuthentication(
                       req.body.app_name,
                       req.body.app_secret
