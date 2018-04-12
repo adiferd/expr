@@ -1,0 +1,9 @@
+[
+  {
+    "prefix" : "/v1"
+    , "middlewares" : []
+    , "routes" : [
+        ["post", "/ai-query", "AiEngine.getAIResponse"]
+      ]
+  }
+]

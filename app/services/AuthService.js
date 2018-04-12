@@ -32,7 +32,7 @@ class AuthService {
 
   static async validateToken(token) {
       try {
-          const decrypted = await Hash.jwtVerify(token, ConfigHelpe.get('client').access_token);
+          const decrypted = await Hash.jwtVerify(token, ConfigHelper.get('client').access_token);
           return decrypted;
       } catch (e) {
         console.log(e);
