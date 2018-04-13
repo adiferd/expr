@@ -4,6 +4,7 @@
     , "middlewares" : []
     , "routes" : [
         ["post", "/ai-query", "AiEngine.getAIResponse"]
+      , ["get", "/card", "AiEngine.getAllContent"]
       ]
   }
 ]
