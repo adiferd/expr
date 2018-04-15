@@ -53,7 +53,7 @@ class Content {
         type: 'string',
         allowNull: false
       },
-      total_shown{
+      total_shown: {
         type: 'integer.unsigned',
         allowNull: false
       },

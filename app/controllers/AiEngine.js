@@ -29,9 +29,8 @@ class AiEngine {
 
       res.status(200).send(response);
     } catch (e) {
-      console.console.error(e);
-    } finally {
-      next();
+      console.error(e);
+      res.status(400).send(e);
     }
   }
 }

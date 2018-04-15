@@ -1,27 +1,29 @@
-'use strict'
+'use strict';
+const sequelize= require('sequelize');
 
-const Config = require(`${process.env.PWD}/app/helpers/Config`);
-const Sequilize = require('sequelize')
+const Config= require(`${process.env.PWD}/app/helpers/Config`);
+const Utils= require(`${process.env.PWD}/app/helpers/Utils`);
 
 class Database {
-  static init() {
-    try {
-      const DBConfig = Config.get('database')
+	static init() {
+		try {
+			const DBConfig= Config.get('database');
+			
+			return new sequelize(
+				DBConfig.database,
+				DBConfig.username,
+				DBConfig.password,
+				DBConfig.setting
+				);
+		}
+		catch(error) {
+			console.error(error);
+			return error;
+		}
+	}
 
-      return new Sequilize(
-                        DBConfig.database
-                      , DBConfig.username
-                      , DBConfig.password
-                      , DBConfig.setting
-                    );
-    } catch (e) {
-      console.log(e);
-      return e;
-    }
-  }
-
-  static adapterToSequelizeAttributes(attributes) {
-
+	static adapterToSequelizeAttributes(attributes) {
+		
 		let sequelizeAttributes= {};
 
 		Object.keys(attributes).forEach((attribute) => {
@@ -31,7 +33,7 @@ class Database {
 				attributeConfig.defaultValue= Utils.accessObjectPropertyByString(
 					sequelize,
 					attributeConfig.defaultValue().toUpperCase()
-				)
+					)
 			}
 
 			attributeConfig.type= Utils.accessObjectPropertyByString(sequelize, attributeConfig.type.toUpperCase());
@@ -53,14 +55,16 @@ class Database {
 	static setAssociationToSequelizeClassMethod(relationDefinition, modelToApply, models) {
 		try {
 			let appliedRelations= [];
+			
+			if (relationDefinition != null) {
+				Object.keys(relationDefinition).forEach( (relation)=> {
+					let relationType= relationDefinition[relation].type;
 
-			Object.keys(relationDefinition).forEach( (relation)=> {
-				let relationType= relationDefinition[relation].type;
+					delete relationDefinition[relation].type;
 
-				delete relationDefinition[relation].type;
-
-				appliedRelations.push(modelToApply[relationType](models[relation], relationDefinition[relation]))
-			})
+					appliedRelations.push(modelToApply[relationType](models[relation], relationDefinition[relation]))
+				})
+			}
 
 			return appliedRelations;
 		}
@@ -69,6 +73,8 @@ class Database {
 			return error;
 		}
 	}
+
+
 }
 
-module.exports = Database;
+module.exports= Database;
