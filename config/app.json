@@ -1,0 +1,14 @@
+{
+  "environment" : "development",
+
+  "development" : {
+		"port" : 6500,
+		"secret" : "devsecret",
+    "host" : "http://localhost:6000"
+	},
+	"production" :{
+		"port" : 4500,
+		"secret" : "productionsecret",
+    "host" : "http://localhost:4500"
+	}
+}

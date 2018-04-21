@@ -3,7 +3,7 @@
 		"prefix" : "/v1/example"
 		, "middlewares" : []
 		, "routes" : [
-			  ["get", "/hello", "Hello.sayHello", ["Auth.isAuthenticated"]]
+			  ["get", "/hello", "Hello.sayHello"]
 			, ["get", "/helloyeah", "Hello.sayHello" ]
 		  ]
 	}
