@@ -1,29 +1,29 @@
-"use strict";
-const Controllers= require(`${process.env.PWD}/app/controllers`);
-const Middlewares= require(`${process.env.PWD}/app/middlewares`);
-const Routes= require(`${process.env.PWD}/app/routes`);
+'use strict';
+const Controllers = require(`${process.env.PWD}/app/controllers`);
+const Middlewares = require(`${process.env.PWD}/app/middlewares`);
+const Routes = require(`${process.env.PWD}/app/routes`);
+const Validator = require(`${process.env.PWD}/app/validators`)
 
-const Utils= require(`${process.env.PWD}/app/helpers/Utils`);
+const Utils = require(`${process.env.PWD}/app/helpers/Utils`);
 
 class Routing {
-	
-	static async apply(server) {
-		var availableRoutes= await this.getAvailableRoutes();
+  static async apply(server) {
+    var availableRoutes= await this.getAvailableRoutes();
 		var availableMiddlewares= await this.getAvailableMiddlewares();
 		var availableControllers= await this.getAvailableControllers();
+    var availableValidators = await this.getAvailableValidators();
 
-		this.attachRouteGroups(server, availableRoutes, availableControllers, availableMiddlewares);
+		this.attachRouteGroups(server, availableRoutes, availableControllers, availableMiddlewares, availableValidators);
 
-		return true;
-	}
+	return true;
+  }
 
-	static getAvailableRoutes() {
-		var routes= new Routes();
-
+  static getAvailableRoutes() {
+    var routes= new Routes();
 		return routes.registeredRouteGroups;
-	}
+  }
 
-	static getAvailableMiddlewares() {
+  static getAvailableMiddlewares() {
 		var middlewares= new Middlewares();
 
 		return middlewares.registeredMiddlewares;
@@ -35,57 +35,71 @@ class Routing {
 		return controllers.registeredControllers
 	}
 
-	static attachRouteGroups(server, routeGroups, controllers, middlewares) {
+  static getAvailableValidators() {
+    var validators= new Validator();
+
+    return validators.registeredValidators
+  }
+
+  static attachRouteGroups(server, routeGroups, controllers, middlewares, validators) {
 		routeGroups.forEach( (routeGroup, index)=> {
 			var appliedGroupMdlwrs= this.setGroupMiddlewares(routeGroup.middlewares, middlewares);
-			
-			this.applyRoutes(server, routeGroup, appliedGroupMdlwrs, controllers, middlewares)
+			this.applyRoutes(server, routeGroup, appliedGroupMdlwrs, controllers, middlewares, validators);
 		})
-		
+
 		return true;
 	}
 
 	static setGroupMiddlewares(groupMiddlewares, availableMiddlewares) {
-		try {
-			var appliedGroupMdlwrs= [];
+		var appliedGroupMdlwrs= [];
 
-			groupMiddlewares.forEach( (middlewares) => {
-				appliedGroupMdlwrs.push(Utils.accessObjectPropertyByString(availableMiddlewares, middlewares))
-			})
+		groupMiddlewares.forEach( (middlewares) => {
+			appliedGroupMdlwrs.push(Utils.accessObjectPropertyByString(availableMiddlewares, middlewares))
+		})
 
-			return appliedGroupMdlwrs;
-		}
-		catch(error) {
-			console.error(error);
-			return error;
-		}
+		return appliedGroupMdlwrs;
 	}
 
-	static async applyRoutes(server, routeGroup, appliedGroupMiddlewares, controllers, middlewares) {
+	static applyRoutes(server, routeGroup, appliedGroupMiddlewares, controllers, middlewares, validators) {
 		try {
 			routeGroup.routes.forEach( (route) => {
-				var method = route[0]
-				, url = route[1]
-				, target = route[2]
-				, routeMiddlewares = ( Array.isArray(route[3]))?route[3]:[]
-				, appliedMdlwrs = [];
+        let method= route.method;
+        let url= route.url;
+        let targetController= route.controller;
+        let targetValidator= route.validator;
+
+        let routeMiddlewares = ( Array.isArray(route.middlewares))?route.middlewares:[],
+        appliedMdlwrs = [];
 
 				routeMiddlewares.forEach( (mdlwr) => {
 					appliedMdlwrs.push(Utils.accessObjectPropertyByString(middlewares, mdlwr))
 				})
 
-				const targetController= Utils.accessObjectPropertyByString(controllers, target);
+				targetController= Utils.accessObjectPropertyByString(controllers, targetController);
 
-				server[method](routeGroup.prefix+url, appliedGroupMiddlewares, appliedMdlwrs, targetController);
+        if (targetValidator != null) {
+          targetValidator= Utils.accessObjectPropertyByString(validators, targetValidator);
+        }
+        else {
+          targetValidator= {};
+        }
+
+
+        // TODO: Add Target validator on router
+				server[method](routeGroup.prefix+url ,appliedGroupMiddlewares, appliedMdlwrs, targetController);
 			})
 
-			return true;	
+			return true;
 		}
 		catch(error) {
+      // console.log(error);
 			return false;
 		}
 	}
 
+	static attachRouteToServer() {
+
+	}
 }
 
-module.exports= Routing;
+module.exports = Routing;

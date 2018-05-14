@@ -1,0 +1,13 @@
+[
+  {
+    "prefix" : "/v1"
+    , "middlewares" : ["Auth.isAuthenticated"]
+    , "routes" : [
+        {
+          "method": "post",
+          "url": "/message",
+          "controller" : "Message.queryMessage"
+        }
+      ]
+  }
+]
