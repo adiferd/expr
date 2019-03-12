@@ -1,7 +1,6 @@
 'use strict';
 
 const bodyParser = require('body-parser');
-// const queryParser
 
 const Formatter = require(`${process.env.PWD}/app/helpers/Formatter`)
 
@@ -9,10 +8,10 @@ class Http {
   static async apply(server) {
     try {
       server.on('uncaughtException', (req, rest, next) =>{
-        server.use(bodyParser.json());
-        server.use(bodyParser.urlencoded({ extended:false }));
-        server.use('cors');
+        res.status(500).send("Internal Server Error");
       })
+      server.use(bodyParser.json());
+      server.use(bodyParser.urlencoded({ extended:false }));
     } catch (e) {
       console.log(e);
     }

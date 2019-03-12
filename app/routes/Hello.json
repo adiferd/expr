@@ -3,14 +3,23 @@
 		"prefix" : "/v1/example"
 		, "middlewares" : []
 		, "routes" : [
-			["get", "/hello", "Hello.sayHello" ]
-		]
+        {
+          "method": "get",
+          "url": "/hello",
+          "controller": "Hello.sayHello"
+        }
+		  ]
 	}
 	, {
 		"prefix" : "/v2/example"
 		, "middlewares" : []
 		, "routes" : [
-			["get", "/shipment", "Hello.sayHello" ]
-		]
+	      {
+	        "method": "get",
+	        "url": "/shipment",
+	        "controller": "Hello.sayHello",
+					"middlewares": ["Auth.isAuthenticated"]
+	      }
+			]
 	}
 ]

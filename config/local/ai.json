@@ -1,4 +1,6 @@
 {
-  "ai_url": "",
-  "ai_token": ""
+  "local":{
+    "ai_url": "",
+    "ai_token": ""
+  }
 }

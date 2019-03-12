@@ -1,0 +1,16 @@
+{
+  "development" : {
+    "app_id" : 6000,
+    "app_name": "test app",
+    "access_token" : "stagingaccesstoken",
+    "app_secret" : "stagingsecret",
+    "callback_url" : "http://localhost:6000"
+  },
+  "production" : {
+    "app_id" : 4500,
+    "app_name": "test app",
+    "access_token" : "productionaccesstoken",
+    "app_secret" : "productionsecret",
+    "callback_url" : "http://localhost:4500"
+  }
+}

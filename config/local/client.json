@@ -1,0 +1,19 @@
+{
+  "local" : {
+    "app_id" : 3000,
+    "app_name": "test app",
+    "access_token" : "localaccesstoken",
+    "app_secret" : "localsecret",
+    "callback_url" : "http://localhost:3000"
+  },
+  "development" : {
+		"consumer_id" : 6500,
+		"consumer_secret" : "devsecret",
+		"callback_url" : "localhost"
+	},
+	"production" :{
+		"consumer_id" : 4500,
+		"consumer_secret" : "productionsecret",
+		"callback_url" : "localhost"
+	}
+}

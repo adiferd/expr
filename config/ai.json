@@ -1,0 +1,10 @@
+{
+  "development":{
+    "ai_url": "",
+    "ai_token": ""
+  },
+  "production":{
+    "ai_url": "",
+    "ai_token": ""
+  }
+}
